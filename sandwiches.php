@@ -28,6 +28,9 @@
             </ul>
             <ul class="right-ul">
                 <li><a href="index.php">Home</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
+                <li><a href="faq.php">FAQ</a></li>
                 <li><a href="sales.php">Sales</a></li>
                 <li><a id="active" href="sandwiches.php">Sandwiches</a></li>
                 <li><a href="account.php">Account</a></li>

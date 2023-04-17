@@ -18,23 +18,23 @@ require_once "config.php";
 $username = $password = "";
 $uerr = $perr = "";
 
-// if($_SERVER['REQUEST_METHOD']=="POST"){
-//     if(empty(trim($_POST['username'])) || empty(trim($_POST['password']))){
-//         $uerr = "Please enter both username and password";
-//     }
-//     else{
-//         $username = trim($_POST['username']);
-//         $password = trim($_POST['password']);
-//         $sql = "SELECT id, fullname, email, username, password, admin FROM loginform WHERE username = ?";
-//         $stmt = mysqli_prepare($conn, $sql);
-//         mysqli_stmt_bind_param($stmt, "s", $username);
-//         mysqli_stmt_execute($stmt);
-//         $q = mysqli_stmt_get_result($stmt);
-//         if(mysqli_num_rows($q) == 0){
-//             $uerr = "An account with that username does not exist";
-//         }
-//     }
-// }
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    if(empty(trim($_POST['username'])) || empty(trim($_POST['password']))){
+        $uerr = "Please enter both username and password";
+    }
+    else{
+        $username = trim($_POST['username']);
+        $password = trim($_POST['password']);
+        $sql = "SELECT id, fullname, email, username, password, admin FROM loginform WHERE username = ?";
+        $stmt = mysqli_prepare($conn, $sql);
+        mysqli_stmt_bind_param($stmt, "s", $username);
+        mysqli_stmt_execute($stmt);
+        $q = mysqli_stmt_get_result($stmt);
+        if(mysqli_num_rows($q) == 0){
+            $uerr = "An account with that username does not exist";
+        }
+    }
+}
 if(empty($uerr)){
     $sql = "SELECT id, fullname, email, username, password, admin, created_at FROM loginform WHERE username = ?";
     $stmt = mysqli_prepare($conn, $sql);
@@ -98,13 +98,11 @@ if(empty($uerr)){
                     </form>
                 </li>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="store.php">Store</a></li>
-                <li><a href="restaurants.php">Restaurants</a></li>
                 <li><a href="news.php">News</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
                 <li><a href="faq.php">FAQ</a></li>
                 <li><a href="register.php">Register</a></li>
                 <li><a id="active" href="login.php">Login</a></li>
-                
             </ul>
         </ul>
     </nav>
