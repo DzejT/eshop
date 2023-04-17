@@ -19,20 +19,20 @@ require_once "config.php";
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandwiches E-shop</title>
-    <link rel="icon" href="Assets/logo5.png">
+    <title>Online Burger Ordering System</title>
+    <link rel="icon" href="Assets/logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="nav-container">
         <ul>
             <ul>
-                <li class="brand"><img src="Assets/logo5.png" alt="Music">Sandwich World</li>
+                <li class="brand"><img src="Assets/logo.png" alt="Music">Burger Mania</li>
             </ul>
             <ul class="right-ul">
                 <li><a href="index.php">Home</a></li>
                 <li><a id="active" href="sales.php">Sales</a></li>
-                <li><a href="sandwiches.php">Sandwiches</a></li>
+                <li><a href="burgers.php">Burgers</a></li>
                 <li><a href="account.php">Account</a></li>
                 <li><a href="logout.php">Logout</a></li>
             </ul>
