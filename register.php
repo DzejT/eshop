@@ -225,12 +225,29 @@ mysqli_close($conn);
         <ul>
             <ul>
                 <li class="brand"><img src="Assets/logo5.png" alt="Music">Sandwich World</li>
+                <!-- Instagram Icon -->
+                <a href="https://www.instagram.com/skanussumustinis/" target="_blank">
+                <img src="https://www.instagram.com/static/images/ico/favicon-192.png/68d99ba29cc8.png" alt="Instagram" style="width:25px;height:25px;">
+                </a>
+
+                <!-- Facebook Icon -->
+                <a href="https://www.facebook.com/profile.php?id=100092045854029" target="_blank">
+                <img src="https://cdn-icons-png.flaticon.com/512/1384/1384053.png" alt="Facebook" style="width:25px;height:25px;">
+                </a>
             </ul>
             <ul class="right-ul">
+                <li>
+                    <form action="search.php" method="GET">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="store.php">Store</a></li>
-                <li><a id="active" href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
+                <li><a href="faq.php">FAQ</a></li>
+                <li><a href="register.php">Register</a></li>
+                <li><a id="active" href="login.php">Login</a></li>
             </ul>
         </ul>
     </nav>
