@@ -26,10 +26,9 @@ if(!(isset($_SESSION['admin']))){
             </ul>
             <ul class="right-ul">
                 <li><a id="active" href="index.php">Home</a></li>
-                <li><a href="store.php">Store</a></li>
                 <?php if($_SESSION["admin"]=='YES'): ?>
                 <li><a href="sales.php">Sales</a></li>
-                <li><a href="burgers.php">Burgers</a></li>
+                <li><a href="sandwiches.php">Sandwiches</a></li>
                 <li><a href="account.php">Account</a></li>
                 <li><a href="logout.php">Logout</a></li>
                 <?php elseif ($_SESSION["admin"]=='NIL'):?>
