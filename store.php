@@ -99,11 +99,14 @@ if(($totPrice>0)){
                 <li class="brand"><img src="Assets/logo5.png" alt="Music">Sandwich World</li>
             </ul>
             <ul class="right-ul">
-                <li><a href="index.php">Home</a></li>
-                <li><a id="active" href="store.php">Store</a></li>
-                <li><a href="register.php">Register</a></li>
-                <li><a href="login.php">Login</a></li>
+                <li><a id="active" href="index.php">Home</a></li>
+                <li><a href="store.php">Store</a></li>
+                <li><a href="cart.php">Cart</a></li>
+                <li><a href="account.php">Account</a></li>
+                <li><a href="logout.php">Logout</a></li>
             </ul>
+
+
         </ul>
     </nav>
     <div class="container">
