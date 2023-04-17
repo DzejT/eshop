@@ -9,6 +9,7 @@ $result = mysqli_query($conn, $sql);
 $cartItemN = [];
 $cartItemQ = [];
 $cartItemP = [];
+$cartItemPricePerOne = [];
 $err = $addr = "";
 if($_SERVER['REQUEST_METHOD']=="POST"){
     if(isset($_POST['tocart'])){
@@ -20,46 +21,32 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                 $cartItemQ[] = $amount;
                 if($row['discount'] > 0){
                     $cartItemP[] = $amount*$row['discount'];
+                    $cartItemPricePerOne[] = $row['discount'];
                 }
                 else{
                     $cartItemP[] = $amount*$row['price'];
+                    $cartItemPricePerOne[] = $row['price'];
                 }
             }
             $a = $a + 1;
-        }
-
-        // if(isset($_SESSION["cartItemN"])){
-        //     $totalN = $cartItemN + $_SESSION["cartItemN"];
-        // }
-        // if(isset($_SESSION["cartItemQ"])){
-        //     $totalQ = $cartItemQ + $_SESSION["cartItemQ"];
-        // }
-        // if(isset($_SESSION["cartItemP"])){
-        //     $totalP = $cartItemP + $_SESSION["cartItemP"];
-        // }
-    
-    
-        
+        }    
     }
 }
     
-$totPrice = $tax = 0;
+$totPrice = 0;
 foreach($cartItemP as $pr){
     $totPrice = $totPrice + $pr;
 }
 if(($totPrice>0)){
     $_SESSION["netAmount"] = $totPrice;
-    if(empty(trim($_POST['addr']))){
-        $err = "*Please enter Delivery Address";
-    }
-    else{
-        $_SESSION["addr"] = $_POST['addr'];
-        header("location: cart.php");
-    }
+    
+    header("location: cart.php");
 
     $_SESSION["cartItemN"] = $cartItemN;
     $_SESSION["cartItemQ"] = $cartItemQ;
     $_SESSION["cartItemP"] = $cartItemP;
+    $_SESSION["cartItemPricePerOne"] = $cartItemPricePerOne;
+
 }
 
 ?>
@@ -122,10 +109,18 @@ if(($totPrice>0)){
                                 <img src="Assets/Store/<?php echo $row['image']; ?>" alt="wh"> <li><?php echo $row['name']; ?><br>Sudėtis:<br><?php echo $row['ingredients']; ?><br></li>
                             </div>
                             <div class="food-input">
-                                <input class="food-quantity" style="border: 2px solid green" type="number" name=<?php echo $a; ?> id=<?php echo $a;?> min="0" max="10" value=<?php echo $_SESSION["cartItemQ"][$a]; ?>>
+                                <input class="food-quantity" style="border: 2px solid green" type="number" name=<?php echo $a; ?> id=<?php echo $a;?> min="0" max="10" value=
+                                    <?php 
+                                        if(isset($_SESSION["cartItemQ"][$a])){
+                                            echo $_SESSION["cartItemQ"][$a];
+                                        }
+                                        else{
+                                            echo "0";
+                                        }  
+                                    ?>>
                             </div>
                             <div class="food-details">
-                                <h3><?php echo $row['name']; ?></h3>
+                                <h3><?php echo $row['name']; ?></h3>    
                                  <?php if($row['discount']!=0): ?>
                                     <ul>
                                         <li><span style="text-decoration: line-through;">Price(Eur) <?php echo $row['price']; ?></span></li>
@@ -144,14 +139,6 @@ if(($totPrice>0)){
                     $a = $a +1;
                     }
                 ?>
-                <div class="address" style="margin: 3% 8%">
-                    <div>
-                        Delivery Address: <span style="color: red;"><?php echo $err;?></span>
-                    </div><br>
-                    <div>
-                        <input class="delivery-address" type="text" name="addr" id="addr" style="width: 50%; font-size: 16px; padding: 3px;" placeholder="Savanorių pr. 215. Kaunas">
-                    </div>
-                </div>
                 <div class="to-cart">
                     <button name="tocart" type="submit">Add to Cart</button>
                 </div>

@@ -1,5 +1,7 @@
 <?php
 session_start();
+
+
 if(!isset($_SESSION['username'])){
     header("location: login.php");
     exit();
@@ -13,7 +15,6 @@ if(isset($_SESSION['cartItemN'])){
     $cartItemN = $_SESSION["cartItemN"];
     $cartItemQ = $_SESSION["cartItemQ"];
     $cartItemP = $_SESSION["cartItemP"];
-    $addr = $_SESSION["addr"];
 }
 $fl = "Yes";
 if(empty($cartItemN)){
@@ -28,19 +29,48 @@ if(isset($_SESSION["netAmount"])){
     $netAmount = $_SESSION["netAmount"];
 }
 if($_SERVER['REQUEST_METHOD']=="POST"){
-    header("location: payment.php");
+    if(isset($_POST['topay'])){
+        header("location: payment.php");
+    }
 }
 
 if($_SERVER['REQUEST_METHOD']=="POST"){
     if(isset($_POST['tocart'])){
-        
+        $a = 0;
+        foreach($_SESSION["cartItemQ"] as $q){
+            $amount = $_POST[$a];
+            $q = $amount;
+            if($q == 0){
+                array_splice($_SESSION["cartItemQ"], $a, 1);
+                array_splice($_SESSION["cartItemP"], $a, 1);
+                array_splice($_SESSION["cartItemN"], $a, 1);
+                array_splice($_SESSION["cartItemPricePerOne"], $a, 1);
+            }
+            else{
+                $_SESSION["cartItemP"][$a] = $q * $_SESSION["cartItemPricePerOne"][$a];
+                $_SESSION["cartItemQ"][$a] = $amount;
+                $totPrice = $totPrice +  $_SESSION["cartItemP"][$a];
+            }
+            $a = $a + 1;
+        }
+        if(isset($totPrice)){
+            $_SESSION["netAmount"] = $totPrice;
+        }
+        else{
+            $_SESSION["netAmount"] = 0;
+        }
+        header("location: cart.php");
     }
 }
+
 
 ?>
 
 <!DOCTYPE html>
 <html lang="en">
+<style>
+  <?php include "style.css" ?>
+</style>
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -104,7 +134,13 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                             <li style="font-weight: bold;">Quantity</li>
                                         <?php } ?>
                                         <div class="food-input">
-                                            <input class="food-quantity" style="border: 2px solid green" type="number" name=<?php echo $a; ?> id=<?php echo $a;?> min="0" max="10" value=<?php echo $_SESSION["cartItemQ"][$a]; ?>>
+                                            <input class="food-quantity" style="border: 2px solid green" type="number" name=<?php echo $a; ?> id=<?php echo $a;?> min="0" max="10" value=
+                                            <?php
+                                                $key = array_search($cn, $cartItemN);
+                                                if(isset($_SESSION["cartItemQ"][$key])){
+                                                    echo $_SESSION["cartItemQ"][$key];
+                                                }  
+                                            ?>>
                                         </div>
                                     </ul>
                                 </div>
@@ -122,13 +158,17 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                     }
                 ?>
                 <br><br>
-                <div class="cart-refresh">
-                    <button name="tocart" type="submit">Refresh cart</button>
-                </div>
                 <div style="margin-left: 78.5%">
+                    <div class="cart-refresh">
+                        <button name="tocart" type="submit">Refresh cart</button>
+                    </div>
+                    <br>
                     <span style="font-weight: bold;">Total Amount: </span><?php echo round($netAmount,2);?>
+                </div style="margin-left=20px;">
+                <div>
+                    <label for="address">Deliver to:</label>
+                    <input type="text" id="address" name="address"><br><br>
                 </div>
-                <div style="margin: 5% 11.5%">Deliver to: <?php echo $addr;?></div>
                 <?php if ($fl == "Yes"){?>
                     <div class="checkout">
                         <button name="topay" type="submit">Proceed to Checkout</button>

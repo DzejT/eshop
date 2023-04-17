@@ -8,7 +8,50 @@
         header("location: index.php");
         exit();
     }
+
+    require_once "config.php";
+
+
+    $sql = "SELECT * FROM fooditems";
+    $result = mysqli_query($conn, $sql);
+
+    if($_SERVER['REQUEST_METHOD']=="POST"){
+        if(isset($_POST['submit'])){
+            $a = 0;
+            while ($row = mysqli_fetch_assoc($result)){
+                $price = $_POST["price$a"];
+                $dprice = $_POST["discount$a"];
+
+                $sql = "UPDATE fooditems SET price = ? WHERE name = ?";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_bind_param($stmt, 'ds', $price, $row["name"]);
+                mysqli_stmt_execute($stmt);
+
+                $sql = "UPDATE fooditems SET discount = ? WHERE name = ?";
+                $stmt = mysqli_prepare($conn, $sql);
+                mysqli_stmt_bind_param($stmt, 'ds', $dprice, $row["name"]);
+                mysqli_stmt_execute($stmt);
+                
+                // $sql = "UPDATE fooditems SET price={$price} WHERE name=Meatball sub";
+                // $response = mysqli_query($conn, $sql);
+
+                // echo $response;
+           
+                // $sql = "UPDATE fooditems SET price={$dprice} WHERE name={$row['name']}";
+                // $result = mysqli_query($conn, $sql);
+
+                $a = $a + 1;
+            }
+
+           
+            header("location: sandwiches.php");
+        }
+    }
+    
+
 ?>
+
+
 
 <!DOCTYPE html>
 <html lang="en">
@@ -48,116 +91,38 @@
         </ul>
     </nav>
     <div class="container">
-        <div class="food-items">
-            <div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/Whopper.png" alt="wh">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pvwhp" id="pvwhp" min="0" max="10" value="150">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dvwhp" id="dvwhp" min="0" max="10" value="0">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pnvwhp" id="pnvwhp" min="0" max="10" value="180">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dnvwhp" id="dnvwhp" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>Whopper</h3>
-                    <ul>
-                        <li>Veg: Rs. 150</li>
-                        <li>Non-Veg: Rs. 180</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/Whopper Jr.png" alt="whj">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pvwpj" id="pvwpj" min="0" max="10" value="100">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dvwpj" id="dvwpj" min="0" max="10" value="0">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pnvwpj" id="pnvwpj" min="0" max="10" value="120">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dnvwpj" id="dnvwpj" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>Whopper Jr.</h3>
-                    <ul>
-                        <li>Veg: Rs. 100</li>
-                        <li>Non-Veg: Rs. 120</li>
-                    </ul>
+        <form action="" method="post">
+            <div class="food-items">
+
+                <?php 
+                    $a = 0;
+                    while ($row = mysqli_fetch_assoc($result)) 
+                    {
+                ?>
+                    <div class="food">
+                        <div class="food-pic">
+                        <img src="Assets/Store/<?php echo $row['image']; ?>" alt="wh">
+                        </div>
+                        <div class="food-input">
+                            <input class="food-price" step="0.01" style="margin-top: 10px; width: 100px;" type="number" name=price<?php echo $a; ?> id=price<?php echo $a; ?> min="0"  value= <?php echo $row['price']; ?> >
+                            <!-- <?php$a = $a + 1;?> -->
+                            <input class="food-discount" step="0.01" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name=discount<?php echo $a; ?> id=discount<?php echo $a; ?> min="0"  value=<?php echo $row['discount']; ?>>
+                        </div>
+                        <div class="food-details">
+                            <h3><?php echo $row['name']?></h3>
+                        </div>
+                    </div>
+                <?php
+                $a = $a + 1;
+                }
+                ?>
+                <div class="to-cart">
+                    <form action="" method="post">
+                        <button type="submit" name="submit" id="submit" type="submit">Update</button>
+                    </form>
                 </div>
             </div>
-            <div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/King.png" alt="kn">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pvkng" id="pvkng" min="0" max="10" value="180">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dvkng" id="dvkng" min="0" max="10" value="0">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pnvkng" id="pnvkng" min="0" max="10" value="200">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dnvkng" id="dnvkng" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>King</h3>
-                    <ul>
-                        <li>Veg: Rs. 180</li>
-                        <li>Non-Veg: Rs. 200</li>
-                    </ul>
-                </div>
-            </div>
-            <!--<div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/Rebel.png" alt="rb">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pvrbl" id="pvrbl" min="0" max="10" value="120">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dvrbl" id="dvrbl" min="0" max="10" value="0">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pnvrbl" id="pnvrbl" min="0" max="10" value="150">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dnvrbl" id="dnvrbl" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>Rebel</h3>
-                    <ul>
-                        <li>Veg: Rs. 120</li>
-                        <li>Non-Veg: Rs. 150</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/Shake.png" alt="sh">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pshk" id="pshk" min="0" max="10" value="100">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dshk" id="dshk" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>Shake</h3>
-                    <ul>
-                        <li>Rs. 100</li>
-                    </ul>
-                </div>
-            </div>
-            <div class="food">
-                <div class="food-pic">
-                    <img src="Assets/Store/Meal.png" alt="ml">
-                </div>
-                <div class="food-input">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pvml" id="pvml" min="0" max="10" value="250">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dvml" id="dvml" min="0" max="10" value="0">
-                    <input class="food-price" style="margin-top: 10px; width: 100px;" type="number" name="pnvml" id="pnvml" min="0" max="10" value="280">
-                    <input class="food-discount" style="margin-top: 10px; border: 2px solid red; width: 100px;" type="number" name="dnvml" id="dnvml" min="0" max="10" value="0">
-                </div>
-                <div class="food-details">
-                    <h3>Meal</h3>
-                    <ul>
-                        <li>Veg: Rs. 250</li>
-                        <li>Non-Veg: Rs. 280</li>
-                    </ul>
-                </div>
-            </div>-->
-            <div class="to-cart">
-                <button onclick="location.href='sandwiches.php';">Update</button>
-            </div>
-        </div>
+        </form>
     </div>
 
     <script src="https://kit.fontawesome.com/6f42fc440c.js" crossorigin="anonymous"></script>
