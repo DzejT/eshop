@@ -41,22 +41,31 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sandwiches E-shop</title>
-    <link rel="icon" href="Assets/logo5.png">
+    <title>Online Burger Ordering System</title>
+    <link rel="icon" href="Assets/logo.png">
     <link rel="stylesheet" href="style.css">
 </head>
 <body>
     <nav class="nav-container">
         <ul>
             <ul>
-                <li class="brand"><img src="Assets/logo5.png" alt="Music">Sandwich World</li>
+                <li class="brand"><img src="Assets/logo.png" alt="Music">Burger Mania</li>
             </ul>
             <ul class="right-ul">
+                <li>
+                    <form action="search.php" method="GET">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
                 <li><a href="index.php">Home</a></li>
                 <li><a href="store.php">Store</a></li>
                 <li><a id="active" href="cart.php">Cart</a></li>
                 <li><a href="account.php">Account</a></li>
                 <li><a href="logout.php">Logout</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="faq.php">FAQ</a></li>
             </ul>
         </ul>
     </nav>
@@ -85,7 +94,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                 <div>
                                     <ul>
                                         <?php if($i==0){?>
-                                            <li style="font-weight: bold;">Price (Eur)</li>
+                                            <li style="font-weight: bold;">Price (&#x20B9;)</li>
                                         <?php } ?>
                                         <li><?php echo $cartItemP[$i]; $i++;?></li>
                                     </ul>

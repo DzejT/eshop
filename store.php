@@ -99,14 +99,21 @@ if(($totPrice>0)){
                 <li class="brand"><img src="Assets/logo5.png" alt="Music">Sandwich World</li>
             </ul>
             <ul class="right-ul">
-                <li><a id="active" href="index.php">Home</a></li>
-                <li><a href="store.php">Store</a></li>
-                <li><a href="cart.php">Cart</a></li>
-                <li><a href="account.php">Account</a></li>
-                <li><a href="logout.php">Logout</a></li>
+                <li>
+                    <form action="search.php" method="GET">
+                        <input type="text" name="q" placeholder="Search...">
+                        <button type="submit"><i class="fas fa-search"></i></button>
+                    </form>
+                </li>
+                <li><a href="index.php">Home</a></li>
+                <li><a id="active" href="store.php">Store</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
+                <li><a href="news.php">News</a></li>
+                <li><a href="faq.php">FAQ</a></li>
+                <li><a href="register.php">Register</a></li>
+                <li><a href="login.php">Login</a></li>
+                
             </ul>
-
-
         </ul>
     </nav>
     <div class="container">
@@ -114,7 +121,7 @@ if(($totPrice>0)){
             <div class="food-items">
                 <div class="food">
                     <div class="food-pic">
-                        <img src="Assets/Store/turkey-sub.png" alt="wh">
+                        <img src="Assets/Store/turkey-sub.png" alt="wh"> <li> Turkey sub <br>Sudėtis:<br>Prancūziška bandelė, kumpis, pomidorai,<br> iceberg salota, pikantiškas padažas, marinuoti agurkeliai<br></li>
                     </div>
                     <div class="food-input">
                         <input class="food-quantity" style="border: 2px solid green" type="number" name="vwhp" id="vwhp" min="0" max="10" value="0">
@@ -128,7 +135,7 @@ if(($totPrice>0)){
                 </div>
                 <div class="food">
                     <div class="food-pic">
-                        <img src="Assets/Store/meatball-sub.png" alt="whj">
+                        <img src="Assets/Store/meatball-sub.png" alt="whj"> <li> Meatball sub <br>Sudėtis:<br>Prancūziška bandelė, mėsos kukuliai, mocarelos sūris, BBQ padažas</li>
                     </div>
                     <div class="food-input">
                         <input class="food-quantity" style="border: 2px solid green" type="number" name="vwpj" id="vwpj" min="0" max="10" value="0">
@@ -142,7 +149,7 @@ if(($totPrice>0)){
                 </div>
                 <div class="food">
                     <div class="food-pic">
-                        <img src="Assets/Store/pastrami-sub.png" alt="kn">
+                        <img src="Assets/Store/pastrami-sub.png" alt="kn"> <li> Pastrami sub <br>Sudėtis:<br>Prancūziška bandelė, kumpis, pomidorai,<br> iceberg salota, česnakinis padažas, adžika padažas, svogūnai,<br> raudonoji paprika, marinuoti agurkeliai<br></li>
                     </div>
                     <div class="food-input">
                         <input class="food-quantity" style="border: 2px solid green" type="number" name="vkng" id="vkng" min="0" max="10" value="0">
