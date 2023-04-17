@@ -24,13 +24,17 @@ if(empty($cartItemN)){
     $addr = "";
 }
 $tax = $netAmount = "";
-if(isset($_SESSION["tax"])){
+if(isset($_SESSION["netAmount"])){
     $netAmount = $_SESSION["netAmount"];
-    $tax = $_SESSION["tax"];
-
 }
 if($_SERVER['REQUEST_METHOD']=="POST"){
     header("location: payment.php");
+}
+
+if($_SERVER['REQUEST_METHOD']=="POST"){
+    if(isset($_POST['tocart'])){
+        
+    }
 }
 
 ?>
@@ -83,6 +87,7 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
         <form action="" method="post">
             <section class="cart-details">
                 <?php $i=0;
+                        $a = 0;
                         foreach($cartItemN as $cn){?>
                             <div class="cart-items">
                                 <div>
@@ -98,7 +103,9 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                         <?php if($i==0){?>
                                             <li style="font-weight: bold;">Quantity</li>
                                         <?php } ?>
-                                        <li><?php echo $cartItemQ[$i];?></li>
+                                        <div class="food-input">
+                                            <input class="food-quantity" style="border: 2px solid green" type="number" name=<?php echo $a; ?> id=<?php echo $a;?> min="0" max="10" value=<?php echo $_SESSION["cartItemQ"][$a]; ?>>
+                                        </div>
                                     </ul>
                                 </div>
                                 <div>
@@ -110,11 +117,16 @@ if($_SERVER['REQUEST_METHOD']=="POST"){
                                     </ul>
                                 </div>
                             </div>
-                <?php }?>
+                <?php
+                    $a++;
+                    }
+                ?>
                 <br><br>
+                <div class="cart-refresh">
+                    <button name="tocart" type="submit">Refresh cart</button>
+                </div>
                 <div style="margin-left: 78.5%">
-                    <span style="font-weight: bold;">Tax: </span><?php echo $tax;?><br>
-                    <span style="font-weight: bold;">Net Amount: </span><?php echo $netAmount;?>
+                    <span style="font-weight: bold;">Total Amount: </span><?php echo round($netAmount,2);?>
                 </div>
                 <div style="margin: 5% 11.5%">Deliver to: <?php echo $addr;?></div>
                 <?php if ($fl == "Yes"){?>
