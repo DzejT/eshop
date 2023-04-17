@@ -106,10 +106,11 @@ if(($totPrice>0)){
                     </form>
                 </li>
                 <li><a href="index.php">Home</a></li>
-                <li><a id="active" href="store.php">Store</a></li>
-                <li><a href="restaurants.php">Restaurants</a></li>
                 <li><a href="news.php">News</a></li>
+                <li><a href="restaurants.php">Restaurants</a></li>
                 <li><a href="faq.php">FAQ</a></li>
+                <li><a id="active" href="store.php">Store</a></li>
+                <li><a href="cart.php">Cart</a></li>
                 <li><a href="register.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
                 
@@ -129,7 +130,10 @@ if(($totPrice>0)){
                     <div class="food-details">
                         <h3>Turkey sub</h3>
                         <ul>
-                            <li>Price(Eur) 6.99</li>
+                            <li><span style="text-decoration: line-through;">Price(Eur) 6.99</span></li>
+                            <li><span style="color: red;">Sale!</span></li>
+                            <li><span style="color: red;">New Price(Eur) 5.99</span></li>
+                            <li><span style="color: red;">Valid until 04-26</span></li>
                         </ul>
                     </div>
                 </div>
@@ -157,7 +161,10 @@ if(($totPrice>0)){
                     <div class="food-details">
                         <h3>Pastrami sub</h3>
                         <ul>
-                            <li>Price(Eur) 6.99</li>
+                            <li><span style="text-decoration: line-through;">Price(Eur) 6.99</span></li>
+                            <li><span style="color: red;">Sale!</span></li>
+                            <li><span style="color: red;">New Price(Eur) 5.99</span></li>
+                            <li><span style="color: red;">Valid until 04-26</span></li>
                         </ul>
                     </div>
                 </div>

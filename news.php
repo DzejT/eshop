@@ -32,17 +32,15 @@ if(!(isset($_SESSION['admin']))){
                     </form>
                 </li>
                 <li><a href="index.php">Home</a></li>
-                <li><a href="store.php">Store</a></li>
-                <?php if($_SESSION["admin"]=='YES'): ?>
-                <li><a href="sales.php">Sales</a></li>
-                <li><a href="burgers.php">Burgers</a></li>
-                <li><a href="account.php">Account</a></li>
-                <li><a href="logout.php">Logout</a></li>
-                <li><a id="active" href="news.php">News</a></li>
-                <?php elseif ($_SESSION["admin"]=='NIL'):?>
                 <li><a id="active" href="news.php">News</a></li>
                 <li><a href="restaurants.php">Restaurants</a></li>
                 <li><a href="faq.php">FAQ</a></li>
+                <?php if($_SESSION["admin"]=='YES'): ?>
+                <li><a href="sales.php">Sales</a></li>
+                <li><a href="sandwiches.php">Sandwiches</a></li>
+                <li><a href="account.php">Account</a></li>
+                <li><a href="logout.php">Logout</a></li>
+                <?php elseif ($_SESSION["admin"]=='NIL'):?>
                 <li><a href="register.php">Register</a></li>
                 <li><a href="login.php">Login</a></li>
                 <?php else:?>
